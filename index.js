@@ -9,6 +9,8 @@ const cardBackImgPath = '/images/card-back-blue.png';
 const cardContainerElem = document.querySelector('.card-container');
 let cards = [];
 const playGameButtonElem = document.getElementById('playGame');
+const collapsedGridAreaTemplate = '"a a" "a a"';
+const cardCollectionCellClass = ".card-pos-a";
 
 
 /*
@@ -44,12 +46,29 @@ function initializeNewGame () {
 
 function startRound () {
     initializeNewRound();
+    collectCards();
 }
 
 function initializeNewRound () {
 
 }
 
+function collectCards () {
+    transformGridArea(collapsedGridAreaTemplate);
+    addCardsToGridAreaCell(cardCollectionCellClass);
+}
+
+function transformGridArea (areas) {
+    cardContainerElem.style.gridTemplateAreas = areas;
+}
+
+function addCardsToGridAreaCell (cellpositionClassName) {
+    const cellPositionElem = document.querySelector(cellpositionClassName);
+
+    cards.forEach((card, index) => {
+        addChildElement(cellPositionElem, card);
+    })
+}
 
 function createCards () {
     cardObjectDefinitions.forEach((cardItem) => {
